@@ -119,3 +119,12 @@ test("renders all fields text when all fields are submitted.", async () => {
     expect(messageDisplay).toHaveTextContent(messageInput.value);
   });
 });
+
+test("doesn't render 'You Submitted' message if empty form is submitted", async () => {
+  render(<ContactForm />);
+  const submitMessage = screen.queryByText(/you submitted/i);
+  const submitButton = screen.getByRole("button");
+
+  userEvent.click(submitButton);
+  expect(submitMessage).not.toBeInTheDocument();
+});
